@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 
 #include "hashtable.h"
@@ -21,7 +20,7 @@ struct Hash {
 };
 
 /*
-haskKey()
+hashKey()
 
 Hashes the key and returns to user.
 
@@ -56,7 +55,7 @@ static unsigned long hashKey(const char *key) {
 /*
 ht_resize()
 
-Resizes the current hash table. Entries are moved, not copied. No keys or entries are allocated or feeed. Called internally by ht_insert() when the load factor would exceed 0.75.
+Resizes the current hash table. Entries are moved, not copied. No keys or entries are allocated or freed. Called internally by ht_insert() when the load factor would exceed 0.75.
 
 Parameters
 ----------
@@ -132,7 +131,6 @@ Return
 Hash* ht_create(size_t capacity) {
 
     if (capacity == 0) {
-        printf("HashTable error: Expected hash table size greater than 0\n");
         return NULL;
     }
 
@@ -273,7 +271,7 @@ Retrieves a value from a key in the hash table. Return value indicates whether t
 Parameters
 ----------
     const Hash *h:
-        Hash table to me looked at
+        Hash table to be looked at
 
     const char *key:
         Key of the value to get

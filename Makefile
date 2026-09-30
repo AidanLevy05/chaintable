@@ -1,16 +1,19 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g -Iinclude
+CFLAGS = -Wall -Wextra -O2 -g -Iinclude
 
 SRC = src/hashtable.c
 TEST = tests/main.c
 
 all: bin/test bin/libhash.so 
 
-bin/test: $(SRC) $(TEST) include/hashtable.h
+bin/test: $(SRC) $(TEST) include/hashtable.h | bin
 	$(CC) $(CFLAGS) $(SRC) $(TEST) -o bin/test
 
-bin/libhash.so: $(SRC) include/hashtable.h
+bin/libhash.so: $(SRC) include/hashtable.h | bin
 	$(CC) $(CFLAGS) -fPIC -shared $(SRC) -o bin/libhash.so
+
+bin:
+	mkdir -p bin
 
 test: bin/test
 	./bin/test
